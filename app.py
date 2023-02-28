@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, url_for, session, redirect
+from flask import Flask, render_template, request, jsonify, url_for, session, redirect, flash
 from pymongo import MongoClient
 import hashlib, datetime, jwt
 
@@ -9,6 +9,7 @@ db = client.db_dotori
 app = Flask(__name__)
 
 SECRET_KEY = 'DOTORI'
+app.secret_key = 'DOTORI'
 
 # index 페이지
 @app.route('/')
@@ -50,14 +51,16 @@ def login():
                 'id': userid,
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=100)
                 }
-                token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
+                token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
                 #return jsonify({'result': 'success', 'token': token})
-                return render_template('index.html')
+                return render_template('success.html')
                 
             else:
-                print("pw불일치")
+                flash("비밀번호가 일치하지 않습니다.")
+                return render_template('login.html')
         else:
-            print("id 없음")
+            flash("아이디가 존재하지 않습니다.")
+            return render_template('login.html')
     else:
         return render_template('login.html')
 
