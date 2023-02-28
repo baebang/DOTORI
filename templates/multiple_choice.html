@@ -64,24 +64,22 @@
   <body>
     <div class="wide">
       <div class="leftover">1/5</div>
-      <div class="question">캠퍼스내 매점은 어디있을까?</div>
-      <div class="option">
-        <button type="button" class="btn btn-outline-secondary" value="option1">
-          복지동
-        </button>
-        <button type="button" class="btn btn-outline-secondary" value="option2">
-          행정동
-        </button>
-        <button type="button" class="btn btn-outline-secondary" value="option3">
-          규동
-        </button>
-        <button type="button" class="btn btn-outline-secondary" value="option4">
-          기숙사
-        </button>
-      </div>
-      <div clas="submitbt">
-        <button type="button" class="btn btn-primary">정답확정</button>
-      </div>
+      <div class="question">{{ quiz_set['question'] }}</div>
+
+      <form action="/" method="post" class="option">
+        <div>
+          <input type="checkbox" name="checks" value="option1" />{{
+          quiz_set['option1'] }}
+          <input type="checkbox" name="checks" value="option2" />{{
+          quiz_set['option2'] }}
+          <input type="checkbox" name="checks" value="option3" />{{
+          quiz_set['option3'] }}
+          <input type="checkbox" name="checks" value="option4" />{{
+          quiz_set['option4'] }}
+        </div>
+
+        <button class="btn btn-primary" type="submit">제출</button>
+      </form>
     </div>
   </body>
 </html>
