@@ -25,6 +25,9 @@ def ddd():
 def fff():
     return render_template('descriptive_flase.html')
 
+@app.route('/success')
+def sucess():
+    return render_template('success.html')
 
 # API 역할을 하는 부분
 # @app.route('/api/list', methods=['GET'])
