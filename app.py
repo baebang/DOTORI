@@ -13,59 +13,53 @@ SECRET_KEY = 'DOTORI'
 # index 페이지
 @app.route('/')
 def index():
-   return render_template('index.html')
-
-
-@app.route('/register')
-def register():
-    return render_template('register.html')
-
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
-
+    return render_template('index.html')
+    
 
 @app.route('/register', methods=['POST', 'GET'])
-def register_member():
-    username = request.form['username']
-    nickname = request.form['nickname']
-    userid = request.form['userid']
-    password = request.form['password']
-    password_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        nickname = request.form['nickname']
+        userid = request.form['userid']
+        password = request.form['password']
+        password_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
     
-    member = {'username':username, 'nickname':nickname, 'userid':userid, 'password':password_hash}
-    db.users.insert_one(member)
-    
-    return jsonify({'result': 'success'})
+        member = {'username':username, 'nickname':nickname, 'userid':userid, 'password':password_hash}
+        db.users.insert_one(member)
 
-
-@app.route('/login', methods=['POST'])
-def login_api():
-    userid = request.form['userid']
-    password = request.form['password']
-    password_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        return redirect(url_for("login"))
     
-    result = db.users.find_one({'userid': userid})
-    
-    if result is not None:
-        
-        result_pw = db.users.find_one({'password': password_hash})
-        
-        if result_pw is not None:
-            payload = {
-            'id': userid,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=100)
-            }
-            token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
-        
-            return jsonify({'result': 'success', 'token': token})
-        
-        
-        else:
-            return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
     else:
-        return jsonify({'result': 'fail', 'msg': '아이디가 없습니다.'})
+        return render_template('register.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        userid = request.form['userid']
+        password = request.form['password']
+        password_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+    
+        result = db.users.find_one({'userid': userid})
+    
+        if result is not None:
+    
+            if result['password'] == password_hash:
+                payload = {
+                'id': userid,
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=100)
+                }
+                token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
+                #return jsonify({'result': 'success', 'token': token})
+                return render_template('index.html')
+                
+            else:
+                print("pw불일치")
+        else:
+            print("id 없음")
+    else:
+        return render_template('login.html')
 
 
 

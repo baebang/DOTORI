@@ -1,66 +1,93 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
+  <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-        crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
 
-          <!-- JS -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"
-        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
+    <!-- JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- 구글폰트 -->
-    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Stylish&display=swap"
+      rel="stylesheet"
+    />
 
     <title>로그인화면</title>
 
     <style>
-        * {
-            width:fit-content;
-            margin:auto;
-        }
-        .wrap{
-            padding: 250px;
-        }
-        .btn btn-secondary btn-lg {
-            width: 1000px;
-            height: 200px;
-            margin: auto;
+      * {
+        width: fit-content;
+        margin: auto;
+      }
+      .wrap {
+        padding: 250px;
+      }
+      .btn btn-secondary btn-lg {
+        width: 1000px;
+        height: 200px;
+        margin: auto;
 
-            color: #D9D9D9;
-        }
+        color: #d9d9d9;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="wrap">
-        <form action "http://localhost:5000/login" method="POST">
-            <div class="input-group input-group-lg">
-                <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-lg">ID</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="userid">
-            </div>
-            <div class="input-group input-group-lg">
-                <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-lg">PW</span>
-                </div>
-                <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="password">
-            </div>
-            
-            <!-- 병합할 때, 추가 작업 필요 -->
-            <div>
-                <button type="button" class="btn btn-secondary btn-lg" onclick="console.log('asdf')">로그인</button>
-            </div>
-        </form>
+      <form action="/login" method="POST">
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-lg">ID</span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-lg"
+            id="userid"
+            name="userid"
+          />
+        </div>
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-lg">PW</span>
+          </div>
+          <input
+            type="password"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-lg"
+            id="password"
+            name="password"
+          />
+        </div>
+
+        <!-- 병합할 때, 추가 작업 필요 -->
+        <div>
+          <button type="submit" class="btn btn-secondary btn-lg">로그인</button>
+        </div>
+      </form>
     </div>
-</body>
+  </body>
 </html>
