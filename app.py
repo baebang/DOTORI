@@ -35,7 +35,7 @@ def quizObj():
         #madeBy = request.form["madeBy"]
         #db.quizzes.insert_one({'objYN': 0, 'question': question, 'answer': answer, 'explanation': explanation, 'madeBy': madeBy});
         
-        db.quizzes.insert_one({'objYN': 0, 'question': question, 'option1': option1, 'option2': option2, 'option3': option3, 'option4': option4,'answer': answer, 'explanation': explanation});
+        db.quizzes.insert_one({'objYN': 1, 'question': question, 'option1': option1, 'option2': option2, 'option3': option3, 'option4': option4,'answer': answer, 'explanation': explanation});
         return redirect(url_for("index"))
     else:
       return render_template("quizobj.html");
