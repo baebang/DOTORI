@@ -29,13 +29,14 @@
   <body>
     <h1>객관식 출제</h1>
 
-    <form>
+    <form action="/quizobj" method="POST">
       <div class="form-group">
         <label for="formGroupExampleInput">문제</label>
         <input
           type="text"
           class="form-control"
           id="formGroupExampleInput"
+          name="question"
           placeholder="문제를 입력하세요"
         />
       </div>
@@ -45,6 +46,7 @@
           type="text"
           class="form-control"
           id="formGroupExampleInput"
+          name="option1"
           placeholder="1번 보기를 입력하세요"
         />
       </div>
@@ -54,6 +56,7 @@
           type="text"
           class="form-control"
           id="formGroupExampleInput2"
+          name="option2"
           placeholder="2번 보기를 입력하세요"
         />
       </div>
@@ -63,6 +66,7 @@
           type="text"
           class="form-control"
           id="formGroupExampleInput"
+          name="option3"
           placeholder="3번 보기를 입력하세요"
         />
       </div>
@@ -72,6 +76,7 @@
           type="text"
           class="form-control"
           id="formGroupExampleInput2"
+          name="option4"
           placeholder="4번 보기를 입력하세요"
         />
       </div>
@@ -81,6 +86,7 @@
           type="text"
           class="form-control"
           id="formGroupExampleInput"
+          name="answer"
           placeholder="정답 번호를 입력하세요"
         />
       </div>
@@ -90,10 +96,11 @@
           type="text"
           class="form-control"
           id="formGroupExampleInput"
+          name="explanation"
           placeholder="풀이를 한 줄로 간략히 입력하세요"
         />
       </div>
+      <input class="btn btn-primary" type="submit" value="등록" />
     </form>
-    <input class="btn btn-primary" type="submit" value="등록" />
   </body>
 </html>

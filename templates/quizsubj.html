@@ -30,38 +30,40 @@
   </head>
   <body>
     <h1>주관식 출제</h1>
-    <form>
+    <form action="/quizsubj" method="POST">
       <div class="form-group">
         <label for="formGroupExampleInput">문제</label>
         <input
           type="text"
           class="form-control"
           id="formGroupExampleInput"
+          name="question"
           placeholder="문제를 입력하세요"
         />
       </div>
-
       <div class="form-group">
         <label for="formGroupExampleInput">정답</label>
         <input
           type="text"
           class="form-control"
           id="formGroupExampleInput"
+          name="answer"
           placeholder="정답을 입력하세요"
         />
       </div>
-
       <div class="form-group">
         <label for="formGroupExampleInput">해설</label>
         <input
           type="text"
           class="form-control"
           id="formGroupExampleInput"
+          name="explanation"
           placeholder="풀이를 한 줄로 간략히 입력하세요"
         />
       </div>
+      <input class="btn btn-primary" type="submit" value="등록" />
     </form>
-    <input class="btn btn-primary" type="submit" value="등록" />
+
     <!-- <textarea placeholder="정답을 입력해주세요" rows="2"></textarea> -->
   </body>
 </html>
