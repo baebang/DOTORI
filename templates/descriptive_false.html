@@ -65,24 +65,15 @@
       .submitbt {
         padding-left: 200px;
       }
+      /* {{quiz_expl.explanation}} */
     </style>
   </head>
   <body>
     <div class="wide">
+      <div class="question">안타깝게도 오답입니다 ㅠㅠ</div>
       <div class="question">{{quiz_expl.question}}</div>
-      <div class="discription">{{quiz_expl.explanation}}</div>
+      <div class="discription">정답 및 해석 : {{quiz_expl.explanation}}</div>
       <div class="option">
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="정답을 입력해 주세요"
-            aria-label="user"
-            aria-describedby="basic-addon2"
-          />
-        </div>
-      </div>
-      <div clas="submitbt">
         <button
           type="button"
           class="btn btn-primary"

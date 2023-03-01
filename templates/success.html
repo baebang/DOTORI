@@ -33,9 +33,13 @@
     <title>성장성공!</title>
 
     <style>
+      * {
+        width: fit-content;
+        margin: auto;
+      }
       .wide {
-        padding-top: 41px;
-        padding-left: 60px;
+        width: fit-content;
+        margin: auto;
       }
 
       .question {
@@ -48,6 +52,7 @@
         padding-bottom: 100px;
         display: flex;
         justify-content: center;
+        text-align: center;
       }
       .option > button {
         display: inline-block;
@@ -56,12 +61,21 @@
         height: 100px;
         margin: 0 20px 0 20px;
       }
+      #dotori {
+        height: 500px;
+        margin: 0 auto;
+        text-align: center;
+        padding-left: 150px;
+      }
     </style>
   </head>
   <body>
     <div class="wide">
       <div class="question">1cm 나노성장!!!</div>
-      <div>이미지 추가</div>
+
+      <img id="dotori" src="../static/resources/dotori_visible.png" />
+
+      <br />
       <div class="question">3초 뒤, 랭캥 페이지로 이동합니다</div>
     </div>
   </body>
