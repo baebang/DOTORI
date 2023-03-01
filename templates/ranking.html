@@ -47,15 +47,14 @@
             <img src="../static/resources/dotori_visible.png" height="{{ user.point*10 }}px">
           </div>
           <div class="rank-profile">
-            <h3> {{ loop.index }}등</h3>
-            <h4>{{ user.point }}CM</h4>
-            <!-- css 로 point 값 넘겨서 그린다 -->
-            <img src="" alt ="profile">
+            <h4> {{ loop.index }}등</h4>
+            <h5>{{ user.point }}CM</h5>
             <h5>{{ user.username }}</h5>
           </div>
         </li>
         {% endfor %}
       </ul>
+      <button onClick="window.location='profile'" class="btn btn-secondary btn-lg">홈으로</button>
     </div>
   </body>
 </html>
