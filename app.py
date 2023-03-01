@@ -227,12 +227,13 @@ def descriptive_flase(quiz_id):
 
 @app.route('/success',methods=['GET', 'POST'])
 def sucess():
-    if request.method == "POST":
+    if request.method == "post":
         solved_u = session["userid"]
         dbuser = db.users.find_one({"userid": solved_u})
         prevPoint = dbuser["point"]
         db.users.update_one({'userid': solved_u}, {'$set': {'point': prevPoint + 1}})
-        return redirect(url_for("profile"))
+        
+        return render_template("success.html")
     else:
         return render_template("success.html")
 
