@@ -34,7 +34,7 @@
       rel="stylesheet"
     />
 
-    <title>HOME.</title>
+    <title>로그인화면</title>
 
     <style>
       * {
@@ -51,31 +51,52 @@
 
         color: #d9d9d9;
       }
-      .go_to_register {
-        padding: 10px;
-      }
     </style>
   </head>
   <body>
     <div class="wrap">
-      <div class="go_to_login">
-        <button
-          type="button"
-          class="btn btn-secondary btn-lg"
-          onclick="location.href='../login'"
-        >
-          로그인하기
-        </button>
-      </div>
-      <div class="go_to_register">
-        <button
-          type="button"
-          class="btn btn-secondary btn-lg"
-          onclick="location.href='../register'"
-        >
-          회원가입하기
-        </button>
-      </div>
+      <form action="/login" method="POST">
+
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-lg">ID</span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-lg"
+            id="userid"
+            name="userid"
+          />
+        </div>
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-lg">PW</span>
+          </div>
+          <input
+            type="password"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-lg"
+            id="password"
+            name="password"
+          />
+        </div>
+
+        <!-- 병합할 때, 추가 작업 필요 -->
+        <div>
+          <button type="submit" class="btn btn-secondary btn-lg" onclick="location.href='../profile'">로그인</button>
+        </div>
+      </form>
     </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <script>
+                alert("{{messages[-1]}}")
+            </script>
+        {% endif %}
+    {% endwith %}
   </body>
 </html>
