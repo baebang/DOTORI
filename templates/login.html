@@ -41,8 +41,15 @@
         width: fit-content;
         margin: auto;
       }
+      #nv {
+        padding-top: 100px;
+        padding: 30px 0;
+      }
       .wrap {
         padding: 250px;
+      }
+      #input_sth {
+        padding-bottom: 30px;
       }
       .btn btn-secondary btn-lg {
         width: 1000px;
@@ -54,10 +61,15 @@
     </style>
   </head>
   <body>
+    <!-- As a heading -->
+    <nav class="navbar navbar-light bg-light" id="nv">
+      <span class="navbar-brand mb-0 h1" onclick="location.href='../'">&#x1F330;<b>도토리 키재기</b>: 내일은 없는 정글 R반 도토리들</span>
+    </nav>
+    
     <div class="wrap">
       <form action="/login" method="POST">
 
-        <div class="input-group input-group-lg">
+        <div class="input-group input-group-lg" id="input_sth">
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-lg">ID</span>
           </div>
@@ -70,7 +82,7 @@
             name="userid"
           />
         </div>
-        <div class="input-group input-group-lg">
+        <div class="input-group input-group-lg" id="input_sth">
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-lg">PW</span>
           </div>
