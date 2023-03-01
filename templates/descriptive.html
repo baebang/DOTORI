@@ -31,7 +31,7 @@
     <title>퀴즈를 맞춰서 짱쎈 도토리가 됩시다!</title>
 
     <style>
-      .wide {
+      #wide {
         padding-top: 41px;
         padding-left: 60px;
       }
@@ -60,9 +60,49 @@
         padding-left: 200px;
       }
     </style>
+
+    <script>
+      function clickevent() {
+        // $("#wide").html("");
+        let answer = $("#user_answer").val();
+        console.log(answer);
+        let sy_answer = `{{set_question[0].answer}}`;
+        if (answer == sy_answer) {
+          quizNext();
+          return console.log("anrkxdswer");
+        } else {
+          return false;
+        }
+      }
+      function quizNext() {
+        $("#wide").html("");
+        let tempHtml = `<div class="leftover">1/5</div>
+      <div class="question">
+        {{set_question[1].question}}
+      </div>
+      <div class="option">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="user_answer"
+            placeholder="정답을 입력해 주세요"
+            aria-label="user"
+            aria-describedby="basic-addon2"
+          />
+        </div>
+      </div>
+      <div clas="submitbt">
+        <button type="button" class="btn btn-primary" onclick="clickevent()">
+          정답확정
+        </button>
+      </div>`;
+        $("#wide").append(tempHtml);
+      }
+    </script>
   </head>
   <body>
-    <div class="wide">
+    <div id="wide">
       <div class="leftover">1/5</div>
       <div class="question">
         저희는 내일을 계획할 필요가 있을까요? (예, 아니오로 정확히 입력해
@@ -73,6 +113,7 @@
           <input
             type="text"
             class="form-control"
+            id="user_answer"
             placeholder="정답을 입력해 주세요"
             aria-label="user"
             aria-describedby="basic-addon2"
@@ -80,8 +121,16 @@
         </div>
       </div>
       <div clas="submitbt">
-        <button type="button" class="btn btn-primary">정답확정</button>
+        <button type="button" class="btn btn-primary" onclick="clickevent()">
+          정답확정
+        </button>
       </div>
     </div>
   </body>
 </html>
+
+<!-- 1. 정답확정 버튼을 누른다.
+2. 정답란에 들어있는 유저 입력값과 db에 저장되어있는 입력값이 같은지 반환
+3. 반환된 값이 트루면 다음 퀴즈로 넘어가기
+4. 반환된 값이 페일이면 페일 페이지로 넘기기
+5. 결과에 맞게 디비 업데이트  -->
