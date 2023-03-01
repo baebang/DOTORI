@@ -67,16 +67,17 @@
 
         switch (numcheck) {
           case 1:
-            let sy_answer = `{{set_question[0].answer}}`;
+            let sy_answer = `{{select_quize[0].answer}}`;
+            let id_quize = `{{select_quize[0]._id}}`;
             if (answer == sy_answer) {
               quizNext2();
               console.log("1번문제");
             } else {
-              location.href = "descriptive_false";
+              location.href = "descriptive_false" + "/" + id_quize;
             }
             break;
           case 2:
-            let sy_answer2 = `{{set_question[1].answer}}`;
+            let sy_answer2 = `{{select_quize[1].answer}}`;
             if (answer == sy_answer2) {
               console.log("2번문제");
               quizNext3();
@@ -86,7 +87,7 @@
 
             break;
           case 3:
-            let sy_answer3 = `{{set_question[2].answer}}`;
+            let sy_answer3 = `{{select_quize[2].answer}}`;
             if (answer == sy_answer3) {
               console.log("3번문제");
               quizNext4();
@@ -95,7 +96,7 @@
             }
             break;
           case 4:
-            let sy_answer4 = `{{set_question[3].answer}}`;
+            let sy_answer4 = `{{select_quize[3].answer}}`;
             if (answer == sy_answer4) {
               console.log("4번문제");
               quizNext5();
@@ -104,7 +105,7 @@
             }
             break;
           case 5:
-            let sy_answer5 = `{{set_question[4].answer}}`;
+            let sy_answer5 = `{{select_quize[4].answer}}`;
             if (answer == sy_answer5) {
               console.log("4번문제");
               location.href = "success";
@@ -123,7 +124,7 @@
         $("#wide").html("");
         let tempHtml = `<div class="leftover">2/5</div>
       <div class="question">
-        {{set_question[1].question}}
+        {{select_quize[1].question}}
       </div>
       <div class="option">
         <div class="input-group mb-3">
@@ -149,7 +150,7 @@
         $("#wide").html("");
         let tempHtml = `<div class="leftover">3/5</div>
       <div class="question">
-        {{set_question[2].question}}
+        {{select_quize[2].question}}
       </div>
       <div class="option">
         <div class="input-group mb-3">
@@ -174,7 +175,7 @@
         $("#wide").html("");
         let tempHtml = `<div class="leftover">4/5</div>
       <div class="question">
-        {{set_question[3].question}}
+        {{select_quize[3].question}}
       </div>
       <div class="option">
         <div class="input-group mb-3">
@@ -199,7 +200,7 @@
         $("#wide").html("");
         let tempHtml = `<div class="leftover">5/5</div>
       <div class="question">
-        {{set_question[4].question}}
+        {{select_quize[4].question}}
       </div>
       <div class="option">
         <div class="input-group mb-3">
@@ -225,7 +226,7 @@
   <body>
     <div id="wide">
       <div class="leftover">1/5</div>
-      <div class="question">{{set_question[0].question}}</div>
+      <div class="question">{{select_quize[0].question}}</div>
       <div class="option">
         <div class="input-group mb-3">
           <input

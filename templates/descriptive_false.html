@@ -69,12 +69,8 @@
   </head>
   <body>
     <div class="wide">
-      <div class="leftover">1/5</div>
-      <div class="question">
-        저희는 내일을 계획할 필요가 있을까요? (예, 아니오로 정확히 입력해
-        주세요)
-      </div>
-      <div class="discription">매점은 행정동에 있습니다!</div>
+      <div class="question">{{quiz_expl.question}}</div>
+      <div class="discription">{{quiz_expl.explanation}}</div>
       <div class="option">
         <div class="input-group mb-3">
           <input
@@ -87,7 +83,13 @@
         </div>
       </div>
       <div clas="submitbt">
-        <button type="button" class="btn btn-primary">홈으로 이동</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="location.href='../profile'"
+        >
+          홈으로 이동
+        </button>
       </div>
     </div>
   </body>
