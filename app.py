@@ -142,7 +142,7 @@ def quizObj():
 
         db.users.update_one({'userid': TEST_MADEBY_ID}, {'$set': {'point': prevPoint + 3}})
 
-        return redirect(url_for("index"))
+        return redirect(url_for("profile"))
     else:
         return render_template("quizobj.html");
 
@@ -167,7 +167,7 @@ def quizSubj():
 
         db.users.update_one({'userid': TEST_MADEBY_ID}, {'$set': {'point': prevPoint + 3}})
 
-        return redirect(url_for("index"))
+        return redirect(url_for("profile"))
     else:
         return render_template("quizsubj.html")
 
@@ -198,6 +198,22 @@ def quizmodify():
         return redirect(url_for("quizlist"))
     else:
         return render_template("quizlist.html")
+
+
+###########################################
+#
+#
+# 랭킹 조회 기능 구현 : 이현지
+#
+#
+###########################################
+
+@app.route('/ranking', methods=['GET'])
+def ranking():
+    #1. db에 저장된 명단을 가져온다(point 높은 순으로 정렬한다)
+    userslist = list(db.users.find({}, {'_id':False}).sort('point', -1))
+
+    return render_template("ranking.html", userslist = userslist)
 
 
 if __name__ == '__main__':  
