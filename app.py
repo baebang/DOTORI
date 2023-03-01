@@ -98,7 +98,8 @@ def editprofile():
 
         return redirect(url_for('profile'))
     else:
-        return render_template('editprofile.html')
+        loggedin = db.users.find_one({"userid" : session['userid']})
+        return render_template('editprofile.html', loginUser=loggedin)
 
 @app.route('/logout')
 def logout():
