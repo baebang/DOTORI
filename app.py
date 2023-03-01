@@ -18,8 +18,15 @@ TEST_MADEBY_ID = 'test'
 # index 페이지
 @app.route('/')
 def index():
-    return render_template('index.html')
-
+    if "userid" in session:
+        print(session["userid"])
+        sessionUser = db.users.find_one({"userid" : session['userid']})
+        print("*********")
+        print(sessionUser)
+        print("*********")
+        return render_template('profile.html', loginUser = sessionUser)
+    else:
+        return render_template('index.html')
 
 ###########################################
 #
@@ -28,7 +35,6 @@ def index():
 #
 #
 ###########################################
-    
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -64,16 +70,8 @@ def login():
         if result is not None:
     
             if result['password'] == password_hash:
-                # payload = {
-                # 'id': userid,
-                # 'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=100)
-                # }
-                # token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-                session['loginFlag'] = True
-                session['userid'] = userid
-                # 랭킹을 변수로 가져가기 위해 수정해야 하는 부분
+                session['userid'] = request.form['userid']
                 return render_template('profile.html', loginUser = result)
-                # return jsonify({'result': 'success', 'token': token})
                 
             else:
                 flash("비밀번호가 일치하지 않습니다.")
@@ -86,9 +84,7 @@ def login():
     
 @app.route('/profile', methods=['GET'])
 def profile():
-    
     return render_template('profile.html')
-
 
 @app.route('/editprofile', methods=['GET', 'POST'])
 def editprofile():
@@ -100,11 +96,8 @@ def editprofile():
 # 토큰 삭제가 안됨!!!
 @app.route('/logout')
 def logout():
-    # token_receive = request.cookies.get('token')
-    # payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
     session.pop('userid', None)
-    return redirect(url_for('/'))
-
+    return render_template("index.html")
 
 ###########################################
 #
@@ -255,4 +248,4 @@ def sucess():
     return render_template('success.html')
 
 if __name__ == '__main__':  
-   app.run('0.0.0.0',port=5000,debug=True)
+    app.run('0.0.0.0',port=5000,debug=True)
