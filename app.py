@@ -13,17 +13,13 @@ SECRET_KEY = 'DOTORI'
 app.secret_key = 'DOTORI'
 
 ### 추후 계정 연결 시 수정해야 되는 부분
-TEST_MADEBY_ID = 'test'
+#TEST_MADEBY_ID = 'test'
 
 # index 페이지
 @app.route('/')
 def index():
     if "userid" in session:
-        print(session["userid"])
-        sessionUser = db.users.find_one({"userid" : session['userid']})
-        print("*********")
-        print(sessionUser)
-        print("*********")
+        sessionUser = db.users.find_one({"userid" : session["userid"]})
         return render_template('profile.html', loginUser = sessionUser)
     else:
         return render_template('index.html')
@@ -84,7 +80,8 @@ def login():
     
 @app.route('/profile', methods=['GET'])
 def profile():
-    return render_template('profile.html')
+    loggedin = db.users.find_one({'userid': session['userid']})
+    return render_template('profile.html', loginUser = loggedin)
 
 @app.route('/editprofile', methods=['GET', 'POST'])
 def editprofile():
@@ -93,7 +90,6 @@ def editprofile():
     else:
         return render_template('editprofile.html')
 
-# 토큰 삭제가 안됨!!!
 @app.route('/logout')
 def logout():
     session.pop('userid', None)
@@ -126,15 +122,14 @@ def quizObj():
 
         #계정 연결되면 madeBy(문제 출제자 id 가져오기)도 추가가 되어야 함
         
-        #madeBy = request.form["madeBy"]
-        #db.quizzes.insert_one({'objYN': 0, 'question': question, 'answer': answer, 'explanation': explanation, 'madeBy': madeBy});
-        db.quizzes.insert_one({'objYN': 1, 'question': question, 'option1': option1, 'option2': option2, 'option3': option3, 'option4': option4,'answer': answer, 'explanation': explanation, 'madeBy': TEST_MADEBY_ID});
+        madeBy = session["userid"]
+        db.quizzes.insert_one({'objYN': 1, 'question': question, 'option1': option1, 'option2': option2, 'option3': option3, 'option4': option4,'answer': answer, 'explanation': explanation, 'madeBy': madeBy});
         
         # 문제 출제자는 점수를 3점 올려준다
-        dbuser = db.users.find_one({"userid": TEST_MADEBY_ID})
+        dbuser = db.users.find_one({"userid": madeBy})
         prevPoint = dbuser["point"]
 
-        db.users.update_one({'userid': TEST_MADEBY_ID}, {'$set': {'point': prevPoint + 3}})
+        db.users.update_one({'userid': madeBy}, {'$set': {'point': prevPoint + 3}})
 
         return redirect(url_for("profile"))
     else:
@@ -149,17 +144,18 @@ def quizSubj():
         explanation = request.form["explanation"]
 
         #계정 연결되면 madeBy(문제 출제자 id 가져오기)도 추가가 되어야 함
-        
-        #madeBy = request.form["madeBy"]
-        #db.quizzes.insert_one({'objYN': 0, 'question': question, 'answer': answer, 'explanation': explanation, 'madeBy': madeBy});
-        
-        db.quizzes.insert_one({'objYN': 0, 'question': question, 'answer': answer, 'explanation': explanation, 'madeBy': TEST_MADEBY_ID});
+        madeBy = session["userid"]
+        db.quizzes.insert_one({'objYN': 0, 'question': question, 'answer': answer, 'explanation': explanation, 'madeBy': madeBy});
 
         # 문제 출제자는 점수를 3점 올려준다
-        dbuser = db.users.find_one({"userid": TEST_MADEBY_ID})
+        dbuser = db.users.find_one({"userid": madeBy})
+        print("===========")
+        print(madeBy)
+        print(dbuser)
+        print("===========")
         prevPoint = dbuser["point"]
 
-        db.users.update_one({'userid': TEST_MADEBY_ID}, {'$set': {'point': prevPoint + 3}})
+        db.users.update_one({'userid': madeBy}, {'$set': {'point': prevPoint + 3}})
 
         return redirect(url_for("profile"))
     else:
