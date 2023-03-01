@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>출제한 문제 리스트</title>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      //
+      function modifyQuiz() {
+        let status = $("#modify-box").css("display");
+        if (status == "block") {
+          $("#modify-box").hide();
+        } else {
+          $("#modify-box").show();
+        }
+      }
+    </script>
+    <style>
+      .quiz-modify-box {
+        border: 1px solid black;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>출제 리스트</h1>
+    <ul class="quiz-list">
+      {% for quiz in madequiz %}
+      <li class="madequiz">
+        <div class="quiz-info">
+          <h4>{{ quiz.question }}</h4>
+        </div>
+        <div class="quiz-button">
+          <button onClick="modifyQuiz()">수정</button>
+          <form action="/quizlist/delete" method="POST">
+            <button onClick="">삭제</button>
+          </form>
+        </div>
+        <div class="quiz-modify-box" id="modify-box">
+          <form action="/quizlist/modify" method="POST">
+            <div class="form-group">
+              <label for="formGroupExampleInput">문제</label>
+              <input
+                type="text"
+                class="form-control"
+                id="formGroupExampleInput"
+                name="question"
+                placeholder="문제를 입력하세요"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput">1번 보기</label>
+              <input
+                type="text"
+                class="form-control"
+                id="formGroupExampleInput"
+                name="option1"
+                placeholder="1번 보기를 입력하세요"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput2">2번 보기</label>
+              <input
+                type="text"
+                class="form-control"
+                id="formGroupExampleInput2"
+                name="option2"
+                placeholder="2번 보기를 입력하세요"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput">3번 보기</label>
+              <input
+                type="text"
+                class="form-control"
+                id="formGroupExampleInput"
+                name="option3"
+                placeholder="3번 보기를 입력하세요"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput2">4번 보기</label>
+              <input
+                type="text"
+                class="form-control"
+                id="formGroupExampleInput2"
+                name="option4"
+                placeholder="4번 보기를 입력하세요"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput">정답 번호</label>
+              <input
+                type="text"
+                class="form-control"
+                id="formGroupExampleInput"
+                name="answer"
+                placeholder="정답 번호를 입력하세요"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput">해설</label>
+              <input
+                type="text"
+                class="form-control"
+                id="formGroupExampleInput"
+                name="explanation"
+                placeholder="풀이를 한 줄로 간략히 입력하세요"
+                required
+              />
+            </div>
+            <input class="btn btn-primary" type="submit" value="저장" />
+          </form>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

@@ -8,6 +8,8 @@ db = client.dotorilocal
 
 app = Flask(__name__)
 
+TEST_MADEBY_ID = 'test'
+
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -34,11 +36,17 @@ def quizObj():
         
         #madeBy = request.form["madeBy"]
         #db.quizzes.insert_one({'objYN': 0, 'question': question, 'answer': answer, 'explanation': explanation, 'madeBy': madeBy});
+        db.quizzes.insert_one({'objYN': 1, 'question': question, 'option1': option1, 'option2': option2, 'option3': option3, 'option4': option4,'answer': answer, 'explanation': explanation, 'madeBy': TEST_MADEBY_ID});
         
-        db.quizzes.insert_one({'objYN': 1, 'question': question, 'option1': option1, 'option2': option2, 'option3': option3, 'option4': option4,'answer': answer, 'explanation': explanation});
+        # 문제 출제자는 점수를 3점 올려준다
+        dbuser = db.users.find_one({"userid": TEST_MADEBY_ID})
+        prevPoint = dbuser["point"]
+
+        db.users.update_one({'userid': TEST_MADEBY_ID}, {'$set': {'point': prevPoint + 3}})
+
         return redirect(url_for("index"))
     else:
-      return render_template("quizobj.html");
+        return render_template("quizobj.html");
 
 # 주관식 문항 추가
 @app.route('/quizsubj', methods=['GET', 'POST'])
@@ -53,10 +61,48 @@ def quizSubj():
         #madeBy = request.form["madeBy"]
         #db.quizzes.insert_one({'objYN': 0, 'question': question, 'answer': answer, 'explanation': explanation, 'madeBy': madeBy});
         
-        db.quizzes.insert_one({'objYN': 0, 'question': question, 'answer': answer, 'explanation': explanation});
+        db.quizzes.insert_one({'objYN': 0, 'question': question, 'answer': answer, 'explanation': explanation, 'madeBy': TEST_MADEBY_ID});
+
+        # 문제 출제자는 점수를 3점 올려준다
+        dbuser = db.users.find_one({"userid": TEST_MADEBY_ID})
+        prevPoint = dbuser["point"]
+
+        db.users.update_one({'userid': TEST_MADEBY_ID}, {'$set': {'point': prevPoint + 3}})
+
         return redirect(url_for("index"))
     else:
-      return render_template("quizsubj.html");
+        return render_template("quizsubj.html")
+
+@app.route('/quizlist', methods=['GET'])
+# 퀴즈 조회, 퀴즈 업데이트, 퀴즈 삭제
+def quizlist():
+    if request.method == "GET":
+        # 1. 현재 사용자의 아이디를 가져온다
+        currentid = 'test'
+        # 2. 현 사용자 아이디와 일치하는 문제들을 가져온다
+        madequiz = list(db.quizzes.find({"madeBy": currentid}))
+        # 3. 넘겨준다
+        return render_template("quizlist.html", madequiz = madequiz)
+    
+@app.route('/quizlist/delete', methods=['GET','POST'])
+def quizdelete():
+    if request.method == "POST":
+        question = request.form('question')
+        deletequiz = db.quizzes.find_one({'question': question})
+        print("**********")
+        print(question)
+        print(deletequiz)
+        return redirect(url_for("quizlist"))
+    else:
+        return render_template("quizlist.html")
+
+@app.route('/quizlist/modify/<id>', methods=['GET','POST'])
+def quizmodify():
+    question = request.values.get('question')
+    if request.method == "POST":
+        return redirect(url_for("quizlist"))
+    else:
+        return render_template("quizlist.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
