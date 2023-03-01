@@ -251,9 +251,16 @@ def descriptive_flase(quiz_id):
     print("================================",quiz_expl)
     return render_template('descriptive_false.html',quiz_id=quiz_id,quiz_expl=quiz_expl)
 
-@app.route('/success')
+@app.route('/success',methods=['GET', 'POST'])
 def sucess():
-    return render_template('success.html')
+    if request.method == "POST":
+        solved_u = session["userid"]
+        dbuser = db.users.find_one({"userid": solved_u})
+        prevPoint = dbuser["point"]
+        db.users.update_one({'userid': solved_u}, {'$set': {'point': prevPoint + 1}})
+        return redirect(url_for("profile"))
+    else:
+        return render_template("success.html")
 
 if __name__ == '__main__':  
     app.run('0.0.0.0',port=5000,debug=True)
