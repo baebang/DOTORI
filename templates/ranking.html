@@ -34,11 +34,12 @@
       {% for user in userslist %} 
         <li class="rank">
           <div class="rank-img">
-            <img src="../static/resources/dotori_visible.png">
+            <img src="../static/resources/dotori_visible.png" height="{{ user.point*10 }}px">
           </div>
           <div class="rank-profile">
             <h3> {{ loop.index }}등</h3>
             <h4>{{ user.point }}CM</h4>
+            <!-- css 로 point 값 넘겨서 그린다 -->
             <img src="" alt ="profile">
             <h5>{{ user.name }}</h5>
           </div>

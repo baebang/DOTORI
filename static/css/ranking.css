@@ -1,6 +1,7 @@
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: lightskyblue;
 }
 
 .rank-list {
@@ -8,13 +9,11 @@ body {
 }
 
 .rank {
-  width: 100px;
   list-style: none;
 }
 
-.rank-img {
-  /* height: 1370px; */
-  height: 800px;
+.rank-img > img {
+  background-size: cover;
 }
 
 @keyframes grow {
@@ -27,10 +26,8 @@ body {
 }
 
 .rank-img > img {
-  width: 100%;
-  height: 100%;
   bottom: 0;
-  animation: grow 1s ease-in-out;
+  /* animation: grow 1s ease-in-out; */
 }
 
 .rank-profile > img {
