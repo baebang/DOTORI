@@ -13,9 +13,6 @@ app = Flask(__name__)
 SECRET_KEY = 'DOTORI'
 app.secret_key = 'DOTORI'
 
-### 추후 계정 연결 시 수정해야 되는 부분
-#TEST_MADEBY_ID = 'test'
-
 # index 페이지
 @app.route('/')
 def index():
@@ -86,8 +83,19 @@ def profile():
 
 @app.route('/editprofile', methods=['GET', 'POST'])
 def editprofile():
-    if request.method == 'POST':
-        return redirect('/profile')
+    if request.method == 'POST':        
+        loggedin = db.users.find_one({"userid" : session['userid']})
+        
+        m_username = request.form['username']
+        m_nickname = request.form['nickname']
+        m_password = request.form['password']
+        m_password_hash = hashlib.sha256(m_password.encode('utf-8')).hexdigest()
+        
+        db.users.update_one({'userid':session['userid']}, {'$set': {'username': m_username}})
+        db.users.update_one({'userid':session['userid']}, {'$set': {'nickname': m_nickname}})
+        db.users.update_one({'userid':session['userid']}, {'$set': {'password': m_password_hash}})
+
+        return redirect(url_for('profile'))
     else:
         return render_template('editprofile.html')
 
@@ -120,9 +128,6 @@ def quizObj():
         option4 = request.form["option4"]
         answer = request.form["answer"]
         explanation = request.form["explanation"]
-
-        #계정 연결되면 madeBy(문제 출제자 id 가져오기)도 추가가 되어야 함
-        
         madeBy = session["userid"]
         db.quizzes.insert_one({'objYN': 1, 'question': question, 'option1': option1, 'option2': option2, 'option3': option3, 'option4': option4,'answer': answer, 'explanation': explanation, 'madeBy': madeBy});
         
@@ -143,17 +148,11 @@ def quizSubj():
         question = request.form["question"]
         answer = request.form["answer"]
         explanation = request.form["explanation"]
-
-        #계정 연결되면 madeBy(문제 출제자 id 가져오기)도 추가가 되어야 함
         madeBy = session["userid"]
         db.quizzes.insert_one({'objYN': 0, 'question': question, 'answer': answer, 'explanation': explanation, 'madeBy': madeBy});
 
         # 문제 출제자는 점수를 3점 올려준다
         dbuser = db.users.find_one({"userid": madeBy})
-        print("===========")
-        print(madeBy)
-        print(dbuser)
-        print("===========")
         prevPoint = dbuser["point"]
 
         db.users.update_one({'userid': madeBy}, {'$set': {'point': prevPoint + 3}})
@@ -203,7 +202,6 @@ def quizmodify():
 def ranking():
     #1. db에 저장된 명단을 가져온다(point 높은 순으로 정렬한다)
     userslist = list(db.users.find({}, {'_id':False}).sort('point', -1))
-
     return render_template("ranking.html", userslist = userslist)
 
 
