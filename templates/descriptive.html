@@ -78,39 +78,43 @@
             break;
           case 2:
             let sy_answer2 = `{{select_quize[1].answer}}`;
+            let id_quize2 = `{{select_quize[1]._id}}`;
             if (answer == sy_answer2) {
               console.log("2번문제");
               quizNext3();
             } else {
-              location.href = "descriptive_false" + "/" + id_quize;
+              location.href = "descriptive_false" + "/" + id_quize2;
             }
 
             break;
           case 3:
             let sy_answer3 = `{{select_quize[2].answer}}`;
+            let id_quize3 = `{{select_quize[2]._id}}`;
             if (answer == sy_answer3) {
               console.log("3번문제");
               quizNext4();
             } else {
-              location.href = "descriptive_false" + "/" + id_quize;
+              location.href = "descriptive_false" + "/" + id_quize3;
             }
             break;
           case 4:
             let sy_answer4 = `{{select_quize[3].answer}}`;
+            let id_quize4 = `{{select_quize[3]._id}}`;
             if (answer == sy_answer4) {
               console.log("4번문제");
               quizNext5();
             } else {
-              location.href = "descriptive_false" + "/" + id_quize;
+              location.href = "descriptive_false" + "/" + id_quize4;
             }
             break;
           case 5:
             let sy_answer5 = `{{select_quize[4].answer}}`;
+            let id_quize5 = `{{select_quize[4]._id}}`;
             if (answer == sy_answer5) {
               console.log("4번문제");
               location.href = "success";
             } else {
-              location.href = "descriptive_false" + "/" + id_quize;
+              location.href = "descriptive_false" + "/" + id_quize5;
             }
             break;
           default:
