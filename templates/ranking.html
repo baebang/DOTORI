@@ -27,8 +27,18 @@
     <link rel="stylesheet" type="text/css" href = "../static/css/ranking.css">
 
     <title>Ranking</title>
+    <style>
+      #nv {
+        padding-top: 100px;
+        padding: 30px 0;
+      }
+    </style>
   </head>
   <body>
+    <!-- As a heading -->
+    <nav class="navbar navbar-light bg-light" id="nv">
+      <span class="navbar-brand mb-0 h1" onclick="location.href='../'">&#x1F330;<b>도토리 키재기</b>: 내일은 없는 정글 R반 도토리들</span>
+    </nav>
     <h1>R반의 랭킹</h1>
       <ul class="rank-list">
       {% for user in userslist %} 
