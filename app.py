@@ -6,7 +6,12 @@ import hashlib, datetime, jwt
 import random
 from bson import ObjectId
 
-client = MongoClient('localhost', 27017)
+# 로컬환경 접속
+#client = MongoClient('localhost', 27017)
+
+# AWS 접속
+client = MongoClient('mongodb://test:test@3.36.56.180', 27017)
+
 db = client.dotorilocal
 
 app = Flask(__name__)
