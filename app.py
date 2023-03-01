@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify, url_for, session, redirect, flash
 from pymongo import MongoClient
 from werkzeug.utils import secure_filename
+from bson import ObjectId
 import hashlib, datetime, jwt
 import random
 
@@ -110,38 +111,8 @@ def logout():
 #
 #
 ###########################################
-@app.route('/newquiz', methods=['GET'])
-def newQuiz():
-    return render_template("newquiz.html");
 
-# 객관식 문항 추가
-@app.route('/quizobj', methods=['GET','POST'])
-def quizObj():
-    if request.method == "POST":
-        question = request.form["question"]
-        
-        answer = request.form["answer"]
-        option1 = request.form["option1"]
-        option2 = request.form["option2"]
-        option3 = request.form["option3"]
-        option4 = request.form["option4"]
-        answer = request.form["answer"]
-        explanation = request.form["explanation"]
-        madeBy = session["userid"]
-        db.quizzes.insert_one({'objYN': 1, 'question': question, 'option1': option1, 'option2': option2, 'option3': option3, 'option4': option4,'answer': answer, 'explanation': explanation, 'madeBy': madeBy});
-        
-        # 문제 출제자는 점수를 3점 올려준다
-        dbuser = db.users.find_one({"userid": madeBy})
-        prevPoint = dbuser["point"]
-
-        db.users.update_one({'userid': madeBy}, {'$set': {'point': prevPoint + 3}})
-
-        return redirect(url_for("profile"))
-    else:
-        return render_template("quizobj.html");
-
-# 주관식 문항 추가
-@app.route('/quizsubj', methods=['GET', 'POST'])
+@app.route('/newquiz', methods=['GET', 'POST'])
 def quizSubj():
     if request.method == "POST":
         question = request.form["question"]
@@ -158,14 +129,14 @@ def quizSubj():
 
         return redirect(url_for("profile"))
     else:
-        return render_template("quizsubj.html")
+        return render_template("newquiz.html")
 
 @app.route('/quizlist', methods=['GET'])
 # 퀴즈 조회, 퀴즈 업데이트, 퀴즈 삭제
 def quizlist():
     if request.method == "GET":
         # 1. 현재 사용자의 아이디를 가져온다
-        currentid = 'test'
+        currentid = session['userid']
         # 2. 현 사용자 아이디와 일치하는 문제들을 가져온다
         madequiz = list(db.quizzes.find({"madeBy": currentid}))
         # 3. 넘겨준다
@@ -174,20 +145,23 @@ def quizlist():
 @app.route('/quizlist/delete', methods=['GET','POST'])
 def quizdelete():
     if request.method == "POST":
-        question = request.form('question')
-        deletequiz = db.quizzes.find_one({'question': question})
+        qid = request.form["id"]
+        db.quizzes.delete_one({'_id':ObjectId(qid)})
         return redirect(url_for("quizlist"))
     else:
         return render_template("quizlist.html")
 
-@app.route('/quizlist/modify/<id>', methods=['GET','POST'])
+@app.route('/quizlist/modify', methods=['GET','POST'])
 def quizmodify():
-    question = request.values.get('question')
     if request.method == "POST":
+        qid = request.form["id"]
+        question = request.form["question"]
+        answer = request.form["answer"]
+        explanation = request.form["explanation"]
+        db.quizzes.update_one({'_id': ObjectId(qid)}, {'$set':{'question':question, 'answer': answer, 'explanation': explanation}})      
         return redirect(url_for("quizlist"))
     else:
         return render_template("quizlist.html")
-
 
 ###########################################
 #
