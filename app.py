@@ -4,6 +4,7 @@ from werkzeug.utils import secure_filename
 from bson import ObjectId
 import hashlib, datetime, jwt
 import random
+from bson import ObjectId
 
 client = MongoClient('localhost', 27017)
 db = client.dotorilocal
@@ -193,27 +194,47 @@ def descriptive():
     # (난수값 생성)
     some_var = None
     random_numbers = random.sample(range(1,quiz_num), 5)
-
-
-    print("================random_numbers=",random_numbers)
-    print("==========answer",some_var)
+    randomddd=db.quizzes.aggregate([ { "$sample": { "size": 5 } }])
+    
+    select_quize = []
+    for x in randomddd:
+        select_quize.append(x)
+    
 
     for i in range(len(random_numbers)) :
-    
+        
         quiz_set =db.quizzes.find_one({'qNnum':random_numbers[i]})
         set_question.insert(i, quiz_set)
+    # print(set_question)
+    print(select_quize)
+    
 
     
-    return render_template('descriptive.html',set_question=set_question)
+    return render_template('descriptive.html',select_quize=select_quize)
     
 
-@app.route('/descriptive_false')
-def descriptive_flase():
-    return render_template('descriptive_false.html')
+@app.route('/descriptive_false/<quiz_id>')
+def descriptive_flase(quiz_id):
 
-@app.route('/success')
+    # myObjectId = ObjectId(quiz_id)
+    # myObjectIdString = str(myObjectId)
+    print("==========ddddd====",type(quiz_id))
+    quiz_expl =db.quizzes.find_one({'_id': ObjectId(quiz_id)})
+
+    
+    print("================================",quiz_expl)
+    return render_template('descriptive_false.html',quiz_id=quiz_id,quiz_expl=quiz_expl)
+
+@app.route('/success',methods=['GET', 'POST'])
 def sucess():
-    return render_template('success.html')
+    if request.method == "POST":
+        solved_u = session["userid"]
+        dbuser = db.users.find_one({"userid": solved_u})
+        prevPoint = dbuser["point"]
+        db.users.update_one({'userid': solved_u}, {'$set': {'point': prevPoint + 1}})
+        return redirect(url_for("profile"))
+    else:
+        return render_template("success.html")
 
 if __name__ == '__main__':  
     app.run('0.0.0.0',port=5000,debug=True)
