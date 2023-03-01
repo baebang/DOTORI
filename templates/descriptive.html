@@ -62,21 +62,66 @@
     </style>
 
     <script>
-      function clickevent() {
-        // $("#wide").html("");
+      function clickevent(numcheck) {
         let answer = $("#user_answer").val();
-        console.log(answer);
-        let sy_answer = `{{set_question[0].answer}}`;
-        if (answer == sy_answer) {
-          quizNext();
-          return console.log("anrkxdswer");
-        } else {
-          return false;
+
+        switch (numcheck) {
+          case 1:
+            let sy_answer = `{{set_question[0].answer}}`;
+            if (answer == sy_answer) {
+              quizNext2();
+              console.log("1번문제");
+            } else {
+              location.href = "descriptive_false";
+            }
+            break;
+          case 2:
+            let sy_answer2 = `{{set_question[1].answer}}`;
+            if (answer == sy_answer2) {
+              console.log("2번문제");
+              quizNext3();
+            } else {
+              location.href = "descriptive_false";
+            }
+
+            break;
+          case 3:
+            let sy_answer3 = `{{set_question[2].answer}}`;
+            if (answer == sy_answer3) {
+              console.log("3번문제");
+              quizNext4();
+            } else {
+              location.href = "descriptive_false.keyword=3";
+            }
+            break;
+          case 4:
+            let sy_answer4 = `{{set_question[3].answer}}`;
+            if (answer == sy_answer4) {
+              console.log("4번문제");
+              quizNext5();
+            } else {
+              location.href = "descriptive_false";
+            }
+            break;
+          case 5:
+            let sy_answer5 = `{{set_question[4].answer}}`;
+            if (answer == sy_answer5) {
+              console.log("4번문제");
+              location.href = "success";
+            } else {
+              location.href = "descriptive_false";
+            }
+            break;
+          default:
+            alert("어떤 값인지 파악이 되지 않습니다.");
+            quizNext5();
         }
       }
-      function quizNext() {
+
+      function quizNext2() {
+        console.log("왔니?");
         $("#wide").html("");
-        let tempHtml = `<div class="leftover">1/5</div>
+        let tempHtml = `<div class="leftover">2/5</div>
       <div class="question">
         {{set_question[1].question}}
       </div>
@@ -93,20 +138,18 @@
         </div>
       </div>
       <div clas="submitbt">
-        <button type="button" class="btn btn-primary" onclick="clickevent()">
+        <button type="button" class="btn btn-primary" onclick="clickevent(2)">
           정답확정
         </button>
       </div>`;
+        console.log("dddd");
         $("#wide").append(tempHtml);
       }
-    </script>
-  </head>
-  <body>
-    <div id="wide">
-      <div class="leftover">1/5</div>
+      function quizNext3() {
+        $("#wide").html("");
+        let tempHtml = `<div class="leftover">3/5</div>
       <div class="question">
-        저희는 내일을 계획할 필요가 있을까요? (예, 아니오로 정확히 입력해
-        주세요)
+        {{set_question[2].question}}
       </div>
       <div class="option">
         <div class="input-group mb-3">
@@ -121,7 +164,82 @@
         </div>
       </div>
       <div clas="submitbt">
-        <button type="button" class="btn btn-primary" onclick="clickevent()">
+        <button type="button" class="btn btn-primary" onclick="clickevent(3)">
+          정답확정
+        </button>
+      </div>`;
+        $("#wide").append(tempHtml);
+      }
+      function quizNext4() {
+        $("#wide").html("");
+        let tempHtml = `<div class="leftover">4/5</div>
+      <div class="question">
+        {{set_question[3].question}}
+      </div>
+      <div class="option">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="user_answer"
+            placeholder="정답을 입력해 주세요"
+            aria-label="user"
+            aria-describedby="basic-addon2"
+          />
+        </div>
+      </div>
+      <div clas="submitbt">
+        <button type="button" class="btn btn-primary" onclick="clickevent(4)">
+          정답확정
+        </button>
+      </div>`;
+        $("#wide").append(tempHtml);
+      }
+      function quizNext5() {
+        $("#wide").html("");
+        let tempHtml = `<div class="leftover">5/5</div>
+      <div class="question">
+        {{set_question[4].question}}
+      </div>
+      <div class="option">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="user_answer"
+            placeholder="정답을 입력해 주세요"
+            aria-label="user"
+            aria-describedby="basic-addon2"
+          />
+        </div>
+      </div>
+      <div clas="submitbt">
+        <button type="button" class="btn btn-primary" onclick="clickevent(5)">
+          정답확정
+        </button>
+      </div>`;
+        $("#wide").append(tempHtml);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="wide">
+      <div class="leftover">1/5</div>
+      <div class="question">{{set_question[0].question}}</div>
+      <div class="option">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="user_answer"
+            placeholder="정답을 입력해 주세요"
+            aria-label="user"
+            aria-describedby="basic-addon2"
+          />
+        </div>
+      </div>
+      <div clas="submitbt">
+        <button type="button" class="btn btn-primary" onclick="clickevent(1)">
           정답확정
         </button>
       </div>
