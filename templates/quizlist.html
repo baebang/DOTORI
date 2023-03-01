@@ -26,8 +26,10 @@
         let status = $(`#${parseid} > div.quiz-modify-box`).css("display");
         if (status === "block") {
           $(`#${parseid} > div.quiz-modify-box`).hide();
+          $(`#${parseid} > div.buttons > button`).text("자세히");
         } else {
           $(`#${parseid} > div.quiz-modify-box`).show();
+          $(`#${parseid} > div.buttons > button`).text("닫기");
         }
       }
     </script>
@@ -78,7 +80,7 @@
         <div class="buttons">
           <button
             onClick="modifyQuiz('${{quiz._id}}')"
-            class="btn btn-secondary"
+            class="btn btn-secondary specific"
           >
             자세히
           </button>
