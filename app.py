@@ -82,8 +82,19 @@ def profile():
 
 @app.route('/editprofile', methods=['GET', 'POST'])
 def editprofile():
-    if request.method == 'POST':
-        return redirect('/profile')
+    if request.method == 'POST':        
+        loggedin = db.users.find_one({"userid" : session['userid']})
+        
+        m_username = request.form['username']
+        m_nickname = request.form['nickname']
+        m_password = request.form['password']
+        m_password_hash = hashlib.sha256(m_password.encode('utf-8')).hexdigest()
+        
+        db.users.update_one({'userid':session['userid']}, {'$set': {'username': m_username}})
+        db.users.update_one({'userid':session['userid']}, {'$set': {'nickname': m_nickname}})
+        db.users.update_one({'userid':session['userid']}, {'$set': {'password': m_password_hash}})
+
+        return redirect(url_for('profile'))
     else:
         return render_template('editprofile.html')
 
