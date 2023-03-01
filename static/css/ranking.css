@@ -1,5 +1,5 @@
 body {
-  margin: 10px;
+  margin: 20px;
 }
 
 .rank-list {
@@ -8,15 +8,18 @@ body {
 
 .rank {
   list-style: none;
-  margin: 20px;
+  margin: 30px;
+}
+
+.rank-img {
+  height: 300px;
+  position: relative;
 }
 
 .rank-img > img {
   background-size: cover;
-}
-
-.rank-img > img {
-  bottom: 0;
+  position: absolute;
+  bottom: 0px;
 }
 
 .rank-profile {

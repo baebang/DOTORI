@@ -40,11 +40,12 @@
       <span class="navbar-brand mb-0 h1" onclick="location.href='../'">&#x1F330;<b>도토리 키재기</b>: 내일은 없는 정글 R반 도토리들</span>
     </nav>
     <h1>R반의 랭킹</h1>
+    <button onClick="window.location='profile'" class="btn btn-secondary btn-lg">홈으로</button>
       <ul class="rank-list">
       {% for user in userslist %} 
         <li class="rank">
           <div class="rank-img">
-            <img src="../static/resources/dotori_visible.png" height="{{ user.point*10 }}px">
+            <img src="../static/resources/dotori_visible.png" height="{{ user.point*10 }}px" >
           </div>
           <div class="rank-profile">
             <h4> {{ loop.index }}등</h4>
@@ -54,7 +55,6 @@
         </li>
         {% endfor %}
       </ul>
-      <button onClick="window.location='profile'" class="btn btn-secondary btn-lg">홈으로</button>
     </div>
   </body>
 </html>
