@@ -13,13 +13,13 @@
     ></script>
 
     <script>
-      //
-      function modifyQuiz() {
-        let status = $("#modify-box").css("display");
-        if (status == "block") {
-          $("#modify-box").hide();
+      function modifyQuiz(id) {
+        parseid = id.toString().substr(1);
+        let status = $(`#${parseid} > div.quiz-modify-box`).css("display");
+        if (status === "block") {
+          $(`#${parseid} > div.quiz-modify-box`).hide();
         } else {
-          $("#modify-box").show();
+          $(`#${parseid} > div.quiz-modify-box`).show();
         }
       }
     </script>
@@ -34,81 +34,39 @@
     <h1>출제 리스트</h1>
     <ul class="quiz-list">
       {% for quiz in madequiz %}
-      <li class="madequiz">
+      <li class="madequiz" id="{{quiz._id}}">
         <div class="quiz-info">
           <h4>{{ quiz.question }}</h4>
         </div>
         <div class="quiz-button">
-          <button onClick="modifyQuiz()">수정</button>
+          <button onClick="modifyQuiz('${{quiz._id}}')">자세히</button>
           <form action="/quizlist/delete" method="POST">
-            <button onClick="">삭제</button>
+            <input type="hidden" value="{{quiz._id}}" name="id" />
+            <input class="btn btn-primary" type="submit" value="삭제" />
           </form>
         </div>
-        <div class="quiz-modify-box" id="modify-box">
+        <div class="quiz-modify-box">
           <form action="/quizlist/modify" method="POST">
             <div class="form-group">
+              <input value="{{quiz._id}}" type="hidden" name="id" />
               <label for="formGroupExampleInput">문제</label>
               <input
                 type="text"
                 class="form-control"
                 id="formGroupExampleInput"
                 name="question"
-                placeholder="문제를 입력하세요"
+                value="{{quiz.question}}"
                 required
               />
             </div>
             <div class="form-group">
-              <label for="formGroupExampleInput">1번 보기</label>
-              <input
-                type="text"
-                class="form-control"
-                id="formGroupExampleInput"
-                name="option1"
-                placeholder="1번 보기를 입력하세요"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="formGroupExampleInput2">2번 보기</label>
-              <input
-                type="text"
-                class="form-control"
-                id="formGroupExampleInput2"
-                name="option2"
-                placeholder="2번 보기를 입력하세요"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="formGroupExampleInput">3번 보기</label>
-              <input
-                type="text"
-                class="form-control"
-                id="formGroupExampleInput"
-                name="option3"
-                placeholder="3번 보기를 입력하세요"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="formGroupExampleInput2">4번 보기</label>
-              <input
-                type="text"
-                class="form-control"
-                id="formGroupExampleInput2"
-                name="option4"
-                placeholder="4번 보기를 입력하세요"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="formGroupExampleInput">정답 번호</label>
+              <label for="formGroupExampleInput">정답</label>
               <input
                 type="text"
                 class="form-control"
                 id="formGroupExampleInput"
                 name="answer"
-                placeholder="정답 번호를 입력하세요"
+                value="{{quiz.answer}}"
                 required
               />
             </div>
@@ -119,7 +77,7 @@
                 class="form-control"
                 id="formGroupExampleInput"
                 name="explanation"
-                placeholder="풀이를 한 줄로 간략히 입력하세요"
+                value="{{quiz.explanation}}"
                 required
               />
             </div>
