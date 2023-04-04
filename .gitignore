@@ -1,2 +1,5 @@
 .venv
 .DS_Store
+__pycache__/quizService.cpython-311.pyc
+__pycache__/userService.cpython-311.pyc
+__pycache__/rankingService.cpython-311.pyc
