@@ -71,54 +71,54 @@
 
         switch (numcheck) {
           case 1:
-            let sy_answer = `{{select_quize[0].answer}}`;
-            let id_quize = `{{select_quize[0]._id}}`;
+            let sy_answer = `{{select_quiz[0].answer}}`;
+            let id_quiz = `{{select_quiz[0]._id}}`;
             if (answer == sy_answer) {
               quizNext2();
               console.log("1번문제");
             } else {
-              location.href = "descriptive_false" + "/" + id_quize;
+              location.href = "descriptive_false" + "/" + id_quiz;
             }
             break;
           case 2:
-            let sy_answer2 = `{{select_quize[1].answer}}`;
-            let id_quize2 = `{{select_quize[1]._id}}`;
+            let sy_answer2 = `{{select_quiz[1].answer}}`;
+            let id_quiz2 = `{{select_quiz[1]._id}}`;
             if (answer == sy_answer2) {
               console.log("2번문제");
               quizNext3();
             } else {
-              location.href = "descriptive_false" + "/" + id_quize2;
+              location.href = "descriptive_false" + "/" + id_quiz2;
             }
 
             break;
           case 3:
-            let sy_answer3 = `{{select_quize[2].answer}}`;
-            let id_quize3 = `{{select_quize[2]._id}}`;
+            let sy_answer3 = `{{select_quiz[2].answer}}`;
+            let id_quiz3 = `{{select_quiz[2]._id}}`;
             if (answer == sy_answer3) {
               console.log("3번문제");
               quizNext4();
             } else {
-              location.href = "descriptive_false" + "/" + id_quize3;
+              location.href = "descriptive_false" + "/" + id_quiz3;
             }
             break;
           case 4:
-            let sy_answer4 = `{{select_quize[3].answer}}`;
-            let id_quize4 = `{{select_quize[3]._id}}`;
+            let sy_answer4 = `{{select_quiz[3].answer}}`;
+            let id_quiz4 = `{{select_quiz[3]._id}}`;
             if (answer == sy_answer4) {
               console.log("4번문제");
               quizNext5();
             } else {
-              location.href = "descriptive_false" + "/" + id_quize4;
+              location.href = "descriptive_false" + "/" + id_quiz4;
             }
             break;
           case 5:
-            let sy_answer5 = `{{select_quize[4].answer}}`;
-            let id_quize5 = `{{select_quize[4]._id}}`;
+            let sy_answer5 = `{{select_quiz[4].answer}}`;
+            let id_quiz5 = `{{select_quiz[4]._id}}`;
             if (answer == sy_answer5) {
               console.log("4번문제");
               location.href = "success";
             } else {
-              location.href = "descriptive_false" + "/" + id_quize5;
+              location.href = "descriptive_false" + "/" + id_quiz5;
             }
             break;
           default:
@@ -132,7 +132,7 @@
         $("#wide").html("");
         let tempHtml = `<div class="leftover">2/5</div>
       <div class="question">
-        {{select_quize[1].question}}
+        {{select_quiz[1].question}}
       </div>
       <div class="option">
         <div class="input-group mb-3">
@@ -158,7 +158,7 @@
         $("#wide").html("");
         let tempHtml = `<div class="leftover">3/5</div>
       <div class="question">
-        {{select_quize[2].question}}
+        {{select_quiz[2].question}}
       </div>
       <div class="option">
         <div class="input-group mb-3">
@@ -183,7 +183,7 @@
         $("#wide").html("");
         let tempHtml = `<div class="leftover">4/5</div>
       <div class="question">
-        {{select_quize[3].question}}
+        {{select_quiz[3].question}}
       </div>
       <div class="option">
         <div class="input-group mb-3">
@@ -208,7 +208,7 @@
         $("#wide").html("");
         let tempHtml = `<div class="leftover">5/5</div>
       <div class="question">
-        {{select_quize[4].question}}
+        {{select_quiz[4].question}}
       </div>
       <div class="option">
         <div class="input-group mb-3">
@@ -234,11 +234,13 @@
   <body>
     <!-- As a heading -->
     <nav class="navbar navbar-light bg-light" id="nv">
-      <span class="navbar-brand mb-0 h1" onclick="location.href='../'">&#x1F330;<b>도토리 키재기</b>: 내일은 없는 정글 R반 도토리들</span>
+      <span class="navbar-brand mb-0 h1" onclick="location.href='../'"
+        >&#x1F330;<b>도토리 키재기</b>: 내일은 없는 정글 R반 도토리들</span
+      >
     </nav>
     <div id="wide">
       <div class="leftover">1/5</div>
-      <div class="question">{{select_quize[0].question}}</div>
+      <div class="question">{{select_quiz[0].question}}</div>
       <div class="option">
         <div class="input-group mb-3">
           <input
